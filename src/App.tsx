@@ -43,7 +43,7 @@ const App: React.FC = () => {
   }, [links, searchQuery, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-slate-50 relative overflow-x-hidden pb-12 flex flex-col font-prompt">
+    <div className="min-h-screen bg-slate-50 relative pb-12 flex flex-col font-prompt">
       {/* Decorative background glows */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-orange-400/10 blur-[120px] pointer-events-none z-0" />
       <div className="absolute top-[40vh] left-0 -ml-20 w-80 h-80 rounded-full bg-blue-400/5 blur-[100px] pointer-events-none z-0" />
