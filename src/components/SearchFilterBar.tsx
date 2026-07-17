@@ -32,7 +32,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   categories,
 }) => {
   return (
-    <div className="glass-effect border-b border-slate-100/80 py-4 px-4 sticky top-[172px] md:top-[148px] z-30 shadow-sm transition-all">
+    <div className="glass-effect border-b border-slate-100/80 py-4 px-4 sticky top-[144px] md:top-[132px] z-30 shadow-sm transition-all">
       <div className="max-w-4xl mx-auto space-y-4">
         {/* Search Input */}
         <div className="relative">
@@ -41,7 +41,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           </div>
           <input
             type="text"
-            className="block w-full pl-11 pr-4 py-3 border border-slate-200/80 rounded-2xl leading-5 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:placeholder-slate-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white sm:text-base transition-all duration-200 shadow-inner"
+            className="block w-full pl-11 pr-4 py-3 border border-slate-200/80 rounded-2xl leading-5 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:placeholder-slate-300 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white sm:text-base transition-all duration-200 shadow-inner"
             placeholder="ค้นหา เช่น 'เช็ดตัว', 'สายยาง', 'กายภาพ'..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -57,7 +57,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
               onClick={() => setSelectedCategory(category)}
               className={`whitespace-nowrap px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-250 active:scale-95 touch-manipulation border ${
                 selectedCategory === category
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-lg shadow-blue-500/15'
+                  ? 'bg-gradient-to-r from-orange-500 to-blue-600 text-white border-transparent shadow-lg shadow-orange-500/15'
                   : 'bg-white text-slate-600 border-slate-200/80 hover:bg-slate-50 hover:text-slate-800'
               }`}
               style={{ minHeight: '40px' }}

@@ -58,7 +58,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
           )}
         </div>
         
-        <h3 className="text-base font-bold text-slate-800 leading-snug mb-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-base font-bold text-slate-800 leading-snug mb-2 group-hover:text-orange-500 transition-colors">
           {item.Title}
         </h3>
         
@@ -72,7 +72,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
           href={item.Link}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3 px-4 rounded-2xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 active:scale-95 shadow-md shadow-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 touch-manipulation"
+          className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-orange-500 to-blue-600 text-white font-bold py-3 px-4 rounded-2xl hover:from-orange-600 hover:to-blue-700 transition-all duration-200 active:scale-95 shadow-md shadow-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20 touch-manipulation"
           style={{ minHeight: '48px' }}
         >
           <span>เปิดดูข้อมูล / ชมคลิป</span>
