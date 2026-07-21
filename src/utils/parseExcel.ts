@@ -18,7 +18,7 @@ export interface StrokeLink {
   IsVideo: boolean;
 }
 
-// Map the original category and keywords to the 4 core categories
+// Map the original category and keywords
 const mapCategory = (originalCategory: string, title: string): string => {
   const cat = (originalCategory || '').trim();
   const text = (title + ' ' + cat).toLowerCase();
@@ -27,10 +27,7 @@ const mapCategory = (originalCategory: string, title: string): string => {
     text.includes('ประเมิน') || 
     text.includes('สอบถาม') || 
     text.includes('ฟอร์ม') || 
-    text.includes('ข้อคิดเห็น') || 
-    text.includes('adl') ||
-    text.includes('feedback') ||
-    text.includes('questionnaire')
+    text.includes('ข้อคิดเห็น')
   ) {
     return 'แบบประเมินและข้อคิดเห็น';
   }
@@ -38,42 +35,18 @@ const mapCategory = (originalCategory: string, title: string): string => {
   if (
     text.includes('กายภาพ') || 
     text.includes('ฟื้นฟู') || 
-    text.includes('physical') || 
-    text.includes('exercise') || 
-    text.includes('ออกกำลัง') || 
-    text.includes('บริหาร') ||
-    text.includes('bell') ||
-    text.includes('ปากเบี้ยว') ||
-    text.includes('ฝึกพูด') ||
-    text.includes('ฝึกกลืน')
+    text.includes('bell')
   ) {
     return 'การฟื้นฟูและกายภาพบำบัด';
   }
   
-  if (
-    text.includes('ดูแล') || 
-    text.includes('บ้าน') || 
-    text.includes('home') || 
-    text.includes('เช็ดตัว') || 
-    text.includes('พลิกตัว') || 
-    text.includes('แผล') || 
-    text.includes('กดทับ') || 
-    text.includes('สายยาง') || 
-    text.includes('หลอดลม') || 
-    text.includes('ให้อาหาร') || 
-    text.includes('เสมหะ')
-  ) {
-    return 'คู่มือการดูแลผู้ป่วยที่บ้าน';
-  }
-  
-  return 'ความรู้โรคหลอดเลือดสมอง';
+  return 'คู่มือการดูแลผู้ป่วยที่บ้าน';
 };
 
 // Clean titles from suffixes
 const cleanTitle = (title: string, link: string, category: string): string => {
   let cleaned = (title || '').trim();
   
-  // If the title is missing, generic, or is a link itself, use a fallback
   if (!cleaned || cleaned === '' || cleaned.toLowerCase().includes('untitled') || cleaned.toLowerCase().startsWith('http')) {
     if (link.includes('youtube.com') || link.includes('youtu.be')) {
       return `คู่มือวิดีโอแนะนำการดูแล (${category})`;
@@ -102,35 +75,36 @@ const cleanTitle = (title: string, link: string, category: string): string => {
   return cleaned.trim();
 };
 
-// Smart Description generator based on title and core category
-const generateDescription = (title: string, category: string): string => {
+// Smart Description generator for the 8 home care items
+const generateDescription = (title: string): string => {
   const t = title.toLowerCase();
   
-  if (category === 'คู่มือการดูแลผู้ป่วยที่บ้าน') {
-    if (t.includes('เช็ดตัว')) return 'แนะนำขั้นตอนการเช็ดตัวผู้ป่วยอย่างถูกวิธีเพื่อรักษาสุขอนามัยและกระตุ้นการไหลเวียนเลือด';
-    if (t.includes('พลิกตัว')) return 'แนวทางการจัดท่าทางและพลิกตัวผู้ป่วยติดเตียงเพื่อป้องกันแผลกดทับและข้อยึดติด';
-    if (t.includes('แผลกดทับ')) return 'ขั้นตอนการทำความสะอาดและดูแลรักษาผิวหนังบริเวณที่มีการกดทับอย่างเหมาะสม';
-    if (t.includes('สายยาง') || t.includes('อาหาร')) return 'วิธีเตรียมอาหารและขั้นตอนการให้อาหารทางสายยางอย่างปลอดภัยและถูกสุขลักษณะ';
-    if (t.includes('หลอดลม') || t.includes('เสมหะ') || t.includes('เจาะคอ')) return 'วิธีดูแลท่อหลอดลมคอและการดูดเสมหะเพื่อป้องกันการติดเชื้อในระบบทางเดินหายใจ';
-    return 'คู่มือแนะนำวิธีปฏิบัติจริงและขั้นตอนการดูแลผู้ป่วยติดเตียงหรือผู้ป่วยพักฟื้นที่บ้าน';
+  if (t.includes('อาหาร') || t.includes('สายยาง')) {
+    return 'ขั้นตอนการให้อาหารและน้ำทางสายยางอย่างปลอดภัยเพื่อป้องกันการสำลัก';
+  }
+  if (t.includes('สัญญาณชีพ') || t.includes('วัด')) {
+    return 'แนะนำขั้นตอนการวัดอุณหภูมิ ความดันโลหิต ชีพจร และการหายใจอย่างถูกวิธี';
+  }
+  if (t.includes('เช็ดตัว') || t.includes('พลิกตัว')) {
+    return 'แนะนำขั้นตอนการเช็ดตัวผู้ป่วยและจัดท่าทางพลิกตัวเพื่อป้องกันแผลกดทับ';
+  }
+  if (t.includes('เตียง') || t.includes('ที่นอนลม')) {
+    return 'วิธีการปรับระดับเตียงและการใช้งานที่นอนลมอย่างถูกต้องเพื่อลดแรงกดทับ';
+  }
+  if (t.includes('ออกซิเจน')) {
+    return 'ข้อควรระวังและวิธีให้สายออกซิเจนแก่ผู้ป่วยอย่างปลอดภัยและถูกสุขลักษณะ';
+  }
+  if (t.includes('ดูดเสมหะ') || t.includes('เสมหะ')) {
+    return 'วิธีดูแลและขั้นตอนการดูดเสมหะอย่างถูกวิธีเพื่อความปลอดภัยของผู้ป่วย';
+  }
+  if (t.includes('หลอดลม') || t.includes('คอ')) {
+    return 'วิธีดูแลทำความสะอาดท่อหลอดลมคออย่างปลอดเชื้อและป้องกันการติดเชื้อ';
+  }
+  if (t.includes('ปัสสาวะ') || t.includes('สายสวน')) {
+    return 'แนวทางการดูแลทำความสะอาดสายสวนปัสสาวะและถุงเก็บปัสสาวะอย่างถูกสุขอนามัย';
   }
   
-  if (category === 'การฟื้นฟูและกายภาพบำบัด') {
-    if (t.includes('bell') || t.includes('ปากเบี้ยว') || t.includes('หน้าเบี้ยว') || t.includes('ใบหน้า')) return 'ท่าบริหารกล้ามเนื้อใบหน้าเพื่อฟื้นฟูจากภาวะกล้ามเนื้อใบหน้าอัมพาตครึ่งซีก';
-    if (t.includes('กลืน') || t.includes('ฝึกกลืน')) return 'แบบฝึกหัดและเทคนิคการบริหารกล้ามเนื้อช่วยกลืนเพื่อป้องกันการสำลักอาหาร';
-    if (t.includes('พูด') || t.includes('ฝึกพูด') || t.includes('ออกเสียง')) return 'เทคนิคการบริหารช่องปาก ลิ้น และลมหายใจเพื่อฟื้นฟูการสื่อสารและการออกเสียง';
-    return 'วิดีโอสาธิตและขั้นตอนการทำกายภาพบำบัดเพื่อกระตุ้นกำลังกล้ามเนื้อและการเคลื่อนไหว';
-  }
-  
-  if (category === 'แบบประเมินและข้อคิดเห็น') {
-    if (t.includes('adl') || t.includes('ความสามารถ')) return 'เครื่องมือประเมินความสามารถในการช่วยเหลือตนเองในการทำกิจวัตรประจำวัน';
-    return 'แบบประเมินสุขภาพ แบบสอบถามความพึงพอใจ และช่องทางรับฟังความคิดเห็นเพื่อพัฒนาการดูแล';
-  }
-  
-  // Default to ความรู้โรคหลอดเลือดสมอง
-  if (t.includes('ตีบ')) return 'เจาะลึกข้อมูลโรคหลอดเลือดสมองตีบ กลไกการเกิด ปัจจัยเสี่ยง และการป้องกันอาการกลับซ้ำ';
-  if (t.includes('แตก')) return 'ความรู้เกี่ยวกับโรคหลอดเลือดสมองแตก อาการวิกฤตที่ต้องรีบไปโรงพยาบาล และการรักษา';
-  return 'ความรู้เบื้องต้นเกี่ยวกับประเภทของโรคหลอดเลือดสมอง ปัจจัยเสี่ยง อาการเตือนภัย และการป้องกัน';
+  return 'คู่มือแนะนำวิธีปฏิบัติจริงและขั้นตอนการดูแลผู้ป่วยระยะพักฟื้นที่บ้านอย่างใกล้ชิด';
 };
 
 // Check if link points to a video (YouTube)
@@ -163,7 +137,7 @@ export const fetchAndParseExcel = async (): Promise<StrokeLink[]> => {
       
       const category = mapCategory(originalCategory, originalTitle);
       const title = cleanTitle(originalTitle, originalLink, category);
-      const description = generateDescription(title, category);
+      const description = generateDescription(title);
       const isVideo = checkIsVideo(originalLink);
       const qrIndex = typeof item.QR_Position_Index === 'number' 
         ? item.QR_Position_Index 

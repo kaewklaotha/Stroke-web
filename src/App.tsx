@@ -6,14 +6,6 @@ import SearchFilterBar from './components/SearchFilterBar';
 import ContentCard from './components/ContentCard';
 import { Loader2 } from 'lucide-react';
 
-const CATEGORIES = [
-  'ทั้งหมด',
-  'ความรู้โรคหลอดเลือดสมอง',
-  'คู่มือการดูแลผู้ป่วยที่บ้าน',
-  'การฟื้นฟูและกายภาพบำบัด',
-  'แบบประเมินและข้อคิดเห็น'
-];
-
 const App: React.FC = () => {
   const [links, setLinks] = useState<StrokeLink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +21,11 @@ const App: React.FC = () => {
     };
     loadData();
   }, []);
+
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(links.map((link) => link.Category).filter(Boolean)));
+    return ['ทั้งหมด', ...cats];
+  }, [links]);
 
   const filteredLinks = useMemo(() => {
     return links.filter((link) => {
@@ -58,7 +55,7 @@ const App: React.FC = () => {
           setSearchQuery={setSearchQuery}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
-          categories={CATEGORIES}
+          categories={categories}
         />
 
         <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-6">
