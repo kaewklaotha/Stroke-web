@@ -79,6 +79,9 @@ const cleanTitle = (title: string, link: string, category: string): string => {
 const generateDescription = (title: string): string => {
   const t = title.toLowerCase();
   
+  if (t.includes('ประเมิน') || t.includes('พึงพอใจ') || t.includes('แบบสอบถาม')) {
+    return 'แบบประเมินสุขภาพ แบบสอบถามความพึงพอใจ และข้อคิดเห็นเพื่อพัฒนาคุณภาพการดูแลผู้ป่วย';
+  }
   if (t.includes('อาหาร') || t.includes('สายยาง')) {
     return 'ขั้นตอนการให้อาหารและน้ำทางสายยางอย่างปลอดภัยเพื่อป้องกันการสำลัก';
   }
